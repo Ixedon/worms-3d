@@ -1,35 +1,4 @@
-/*
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-#define GLM_FORCE_RADIANS
-const float PI = 3.141592653589793f;
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <stdlib.h>
-#include <stdio.h>
-#include <vector>
-#include "include/shaderprogram.h"
-#include "include/objloader.hpp"
-#include "include/texture.hpp"
-
-using namespace glm;
-
+#include "init.hpp"
 
 
 
@@ -39,8 +8,8 @@ float dist,dist2;
 
 float aspect=1; //Ratio of width to height
 
-//Shader program object
-ShaderProgram *shaderProgram;
+// //Shader program object
+ ShaderProgram *shaderProgram;
 
 //VAO and VBO handles
 GLuint vao;
@@ -52,59 +21,14 @@ GLuint Texture;
 GLuint Texture_cr;
 GLuint TextureID;
 GLuint TextureID_cr;
-// //Cube
-// float* vertices=Models::CubeInternal::vertices;
-// float* colors=Models::CubeInternal::colors;
-// float* normals=Models::CubeInternal::normals;
 
 
  // Read our .obj file
  std::vector<glm::vec3> vertices;
  std::vector<glm::vec2> uvs;
- std::vector<glm::vec3> normals; // Won't be used at the moment.
-
-//Teapot
-/*float* vertices=Models::TeapotInternal::vertices;
-float* colors=Models::TeapotInternal::colors;
-float* normals=Models::TeapotInternal::normals;
-int vertexCount=Models::TeapotInternal::vertexCount;*/
+ std::vector<glm::vec3> normals; 
 
 
-
-
-//Error handling procedure
-void error_callback(int error, const char* description) {
-	fputs(description, stderr);
-}
-
-//Key event processing procedure
-void key_callback(GLFWwindow* window, int key,
-	int scancode, int action, int mods) {
-	if (action == GLFW_PRESS) {
-		if (key == GLFW_KEY_LEFT) speed_y = -3.14;
-		if (key == GLFW_KEY_RIGHT) speed_y = 3.14;
-		if (key == GLFW_KEY_UP) speed_x = -3.14;
-		if (key == GLFW_KEY_DOWN) speed_x = 3.14;
-	}
-
-
-	if (action == GLFW_RELEASE) {
-		if (key == GLFW_KEY_LEFT) speed_y = 0;
-		if (key == GLFW_KEY_RIGHT) speed_y = 0;
-		if (key == GLFW_KEY_UP) speed_x = 0;
-		if (key == GLFW_KEY_DOWN) speed_x = 0;
-	}
-}
-
-//Window resize event processing procedure
-void windowResize(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height); //Window coordinates
-    if (height!=0) {
-        aspect=(float)width/(float)height; //Compute window size aspect ratio
-    } else {
-        aspect=1;
-    }
-}
 
 
 void prepareObject(ShaderProgram*);
@@ -277,30 +201,6 @@ void drawScene(GLFWwindow* window, float angle_x, float angle_y) {
 
 
 
-
-//Freeing of resources
-void freeOpenGLProgram() {
-	delete shaderProgram; //Delete shader program
-
-	glDeleteVertexArrays(1,&vao); //Delete VAO
-	//Delete VBOs
-	glDeleteBuffers(1,&bufVertices);
-	glDeleteBuffers(1,&bufColors);
-	glDeleteBuffers(1,&bufNormals);
-
-
-}
-
-
-void zeby_ten_glupi_opengl_w_koncu_zaczal_u_mnie_dzialac_siedzialem_nad_tym_4_godziny_z_50_tabami_w_przegladarce_niech_ogarna_w_te_wersje_po_ludzku()
-{
-	glfwWindowHint (GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-}
-
-
 int main(void)
 {
 
@@ -315,7 +215,7 @@ int main(void)
 	}
 
 
-	zeby_ten_glupi_opengl_w_koncu_zaczal_u_mnie_dzialac_siedzialem_nad_tym_4_godziny_z_50_tabami_w_przegladarce_niech_ogarna_w_te_wersje_po_ludzku();
+	zeby_wersje_stykaly();
 
 
 	window = glfwCreateWindow(500, 500, "OpenGL", NULL, NULL);  //Create 500x500 window with "OpenGL" as well as OpenGL context.
