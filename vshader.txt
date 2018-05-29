@@ -1,0 +1,80 @@
+#version 330
+
+//Uniform variables
+uniform mat4 P;
+uniform mat4 V;
+uniform mat4 M;
+
+
+//Attributes
+in vec3 vertex; //vertex coordinates in model space
+in vec2 vertexUV;
+in vec3 normal; //vertex normal (ignored for now)
+
+out vec2 UV;
+out float dist;
+out vec4 sha;
+out float shaint;
+
+out vec3 tvertex;
+out vec3 tnormal;
+out vec3 lpos;
+out vec3 cpos;
+
+
+void main(void) {
+
+	gl_Position=P*V*M*vec4(vertex,1);
+	UV = vertexUV;
+
+
+
+//regular shader
+
+	vec4 lp = vec4(5,10,-7,1); //world  (a,b,c,d)  b++ -> wiekszy cien
+    vec4 l =normalize( V *lp -  V * M * vec4(vertex,1));
+    vec4 n = normalize(V * M * vec4(normal,0));
+
+   	float d= dot(n,l);
+    dist = d;
+
+
+
+
+//toon shader
+    float intensity;
+    vec4 lightDir = vec4(5,10,-7,1);
+    intensity = dot(V* lightDir - V*M*vec4(vertex,1) ,normalize( V*M *vec4(normal,0)));
+    intensity = intensity/20.0;
+    if (intensity > 0.95)
+		sha = vec4(0.5,0.5,0.5,1.0);
+	else if (intensity > 0.5)
+		sha = vec4(0.3,0.3,0.3,1.0);
+	else if (intensity > 0.25)
+		sha = vec4(0.2,0.2,0.2,1.0);
+	else
+		sha = vec4(0.1,0.1,0.1,1.0);
+
+
+
+	shaint = ceil(intensity/5 + 1)*5/10;
+	//shaint = (intensity + 10)/8;
+
+
+
+
+
+
+
+
+
+
+    //v3 toon shader
+
+
+    tvertex = (V*M*vec4(vertex,1)).xyz;
+    tnormal = (V*M *vec4(normal,0)).xyz;
+    lpos = (V * vec4(5,10,-7,1)).xyz;
+    cpos = V[0].xyz;
+
+}

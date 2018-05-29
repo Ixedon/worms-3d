@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="test2" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/test2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/test2" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add option="-DGLEW_STATIC" />
+			<Add directory="glm" />
+			<Add directory="glfw/include" />
+			<Add directory="glew/include" />
+			<Add directory="." />
+		</Compiler>
+		<Linker>
+			<Add library="glew/lib/glew32s.lib" />
+			<Add library="glfw3" />
+			<Add library="opengl32" />
+			<Add library="gdi32" />
+			<Add library="glu32" />
+			<Add directory="glfw/lib" />
+			<Add directory="glew/lib" />
+		</Linker>
+		<Unit filename="fshader.txt" />
+		<Unit filename="include/objloader.cpp" />
+		<Unit filename="include/objloader.hpp" />
+		<Unit filename="main_file.cpp" />
+		<Unit filename="include/shaderprogram.cpp" />
+		<Unit filename="include/texture.cpp" />
+		<Unit filename="include/texture.hpp" />
+		<Unit filename="include/shaderprogram.h" />
+		<Unit filename="include/vshader.txt" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

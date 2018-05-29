@@ -1,0 +1,164 @@
+#version 330
+
+// Interpolated values from the vertex shaders
+in vec2 UV;
+in float dist;   //for regshader
+in vec4 sha;     //for toonshader
+in float shaint;
+// Ouput data
+out vec3 color;
+
+
+in vec3 tvertex;
+in vec3 tnormal;
+in vec3 lpos;
+in vec3 cpos;
+
+
+
+uniform sampler2D myTextureSampler;
+uniform sampler2D ColorRamp;
+
+vec3 toon4(void);
+vec3 toon4Sim(void);
+
+vec4 toon3(void);
+
+
+void main(void) {
+
+
+
+    vec3 tshad = toon4();
+    vec3 tshads = toon4Sim();
+    vec4 toon = toon3();
+
+	//uncomment for different shaders (tu sie zmienia)
+
+	//toon shaders
+	//color = texture( myTextureSampler, UV ).rgb *sha.rbg*3.5;         //toon shader
+	//color = texture( myTextureSampler, UV ).rgb *shaint;         //toon shader v2 (expernimental)
+	color = texture( myTextureSampler, UV ).rgb * toon.rbg;          //toon shader v3 http://www.clockworkcoders.com/oglsl/tutorial10.htm
+
+
+    //color = texture( myTextureSampler, UV ).rgb * tshad.rbg;           //toon shader v4 (looking good)
+    //color = texture( myTextureSampler, UV ).rgb * tshads.rbg;           //toon shader v4-2 (simple)
+
+	//color = texture( myTextureSampler, UV ).rgb *dist;          //regular shader
+	//color = texture( myTextureSampler, UV ).rgb *sha.rbg * dist*3.5; //mixed shaders
+
+
+	//color = texture( myTextureSampler, UV ).rgb;                    //no shading
+    //color = texture( ColorRamp, UV ).rgb;                    //no shading
+
+	//color = vec3(shaint,shaint,shaint);
+	//color = tshad;
+
+}
+
+
+
+vec3 toon4(void)
+{
+    vec3 shader;
+    vec3 l =normalize( lpos -  tvertex);
+    vec3 n = normalize(tnormal);
+    vec3 v = normalize( cpos -  tvertex);
+    float nl = dot(n, l);  //[-1,1]
+
+
+    vec3 r = l - 2*nl*n;
+
+    //float D = pow( abs(dot(v , r)) ,1.0 );  //fajny metaliczny
+    float D = pow( abs(dot( l , r)) ,1.0 );    //najlepiej
+    //float D = pow( abs(dot( n , v)) , 1.0 );
+
+    shader = texture(ColorRamp, vec2(nl, D)).rgb;
+
+    float sila  = 0.2;
+    float sil = max(dot(n,v), 0.0);
+    if (sil < 0.01) shader = vec3 (sila,sila,sila);
+
+
+    return shader;
+
+}
+
+
+
+vec3 toon4Sim(void)
+{
+    vec3 l =normalize( lpos -  tvertex);
+    vec3 n = normalize(tnormal);
+    float nl = dot(n, l);  //[-1,1]
+
+    vec3 shadsimple;
+    float c1 = 0.1;
+    float c2 = 0.33;
+    float c3 = 1.0;
+
+    if(nl > 0.5) shadsimple = vec3(c3,c3,c3);
+    else if(nl > 0.0) shadsimple = vec3(c2,c2,c2);
+    else shadsimple = vec3(c1,c1,c1);
+
+    return shadsimple;
+
+}
+
+
+vec4 toon3 (void)
+{
+	//new shader
+	vec4 toon;
+
+	float shininess = 1.0;
+
+
+	// Material Color:
+	float col0 = 1.0;
+    vec4 color0 = vec4(col0, col0, col0, 1.0);
+
+    // Silhouette Color:
+    float col1 = 0.2;
+    vec4 color1 = vec4(col1, col1, col1, 1.0);
+
+    // Specular Color:
+    float col2 = 1.0;
+    vec4 color2 = vec4(col2, col2, col2, 1.0);
+
+
+    // Lighting
+   // vec4 eyePos = vec4(0.0,0.0,5.0);
+    vec3 eyePos = cpos;
+    vec3 lightPos = lpos;
+
+    vec3 Normal = normalize( tnormal);
+    vec3 EyeVert = normalize(eyePos - tvertex);
+    vec3 LightVert = normalize(lightPos - tvertex);
+    vec3 EyeLight = normalize(LightVert + EyeVert);
+
+
+    // Simple Silhouette
+    float sil = max(dot(Normal,EyeVert), 0.0);
+
+    if (sil < 0.1) toon = color1;      //0.3 orig
+    else
+      {
+       toon = color0;
+
+       // Specular part
+       float spec = pow(max(dot(Normal,EyeLight),0.0), shininess);
+
+       if (spec < 0.2) toon *= 0.8;
+       else toon = color2;
+
+       // Diffuse part
+       float diffuse = max(dot(Normal,LightVert),0.0);
+       if (diffuse < 0.5) toon *=0.8;
+    }
+
+    return toon;
+
+
+
+}
