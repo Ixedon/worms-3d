@@ -83,9 +83,11 @@ void Gra::drawScene(GLFWwindow* window, float angle_x, float angle_y) {
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT); //Clear color and depth buffers
 
 	//glm::mat4 P = glm::perspective(50 * PI / 180,aspect, 1.0f, 50.0f); //Compute projection matrix
-	glm::mat4 P = glm::perspective(50 * PI / 180,aspect, 1.0f, 100.0f); //ostatni parametr - odleglosc renderowania
+	glm::mat4 P = glm::perspective(50 * PI / 180,aspect, 1.0f, 400.0f); //ostatni parametr - odleglosc renderowania
 
-	float dist = -10.0f; float dist2 = 50.0f; //for desert
+	float dist = -10.0f;
+	float dist2 = 200.0f; //for desert
+	//float dist2 = 50.0f; //for desert
 
 	glm::mat4 V = glm::lookAt( //Compute view matrix
 		glm::vec3(0.0f, dist2, dist),

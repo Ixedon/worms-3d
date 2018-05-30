@@ -37,7 +37,7 @@ void main(void) {
 
 
 	//color = texture( myTextureSampler, UV ).rgb;                    //no shading
-
+  //color = vec3(0.5,0.5,0.5);                                              //solid color
 }
 
 

@@ -5,7 +5,7 @@ void Plansza::load_stuff()
 {
 	Texture = loadBMP_custom("texture/desert.bmp");     //for desert
 	
-    bool res = loadOBJ("models/desert-shd.obj", vertices, uvs, normals);        //desert model
+    bool res = loadOBJ("models/desert-math.obj", vertices, uvs, normals);        //desert model
 }
 
 
