@@ -47,7 +47,6 @@ void Obiekt::assignVBOtoAttribute(const char* attributeName, GLuint bufVBO, int 
 void Obiekt::create_shaderProgram()
 {
 	shaderProgram=new ShaderProgram("vshader.txt",NULL,"fshader.txt"); //Read, compile and link the shader program
-    shaderProgram->use();            //wazne ze tutaj
 }
 
 
@@ -69,7 +68,7 @@ void Obiekt::prepareObject() {
 	assignVBOtoAttribute("vertexUV",bufUVs,2); //"UV" refers to the declaration "in vec4 UV;" in vertex shader
 	assignVBOtoAttribute("normal",bufNormals,3); //"normal" refers to the declaration "in vec4 normal;" w vertex shader
 
-	bindTextures();
+	//bindTextures();
 
 	glBindVertexArray(0); //Deactivate VAO
 	
@@ -78,12 +77,16 @@ void Obiekt::prepareObject() {
 
 
 void Obiekt::drawObject(mat4 mP, mat4 mV, mat4 mM) {
+	shaderProgram->use();            
+
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("P"),1, false, glm::value_ptr(mP));
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("V"),1, false, glm::value_ptr(mV));
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("M"),1, false, glm::value_ptr(mM));
 
 	//Activation of VAO and therefore making all associations of VBOs and attributes current
 	glBindVertexArray(vao);
+
+	bindTextures();    //wazne ze tutaj
 
 	//Drawing of an object
 	glDrawArrays(GL_TRIANGLES,0,vertices.size());

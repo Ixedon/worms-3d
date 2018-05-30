@@ -23,9 +23,7 @@ public:
 ////////////////////////////////////
 	GLuint vao;
 	GLuint Texture;
-	GLuint Texture_cr;
 	GLuint TextureID;
-	GLuint TextureID_cr;
 	GLuint bufVertices; //handle for VBO buffer which stores vertex coordinates
 	GLuint bufUVs;
 	GLuint bufColors;  //handle for VBO buffer which stores vertex colors

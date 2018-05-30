@@ -16,23 +16,14 @@ void Gra::initOpenGLProgram(GLFWwindow* window) {
 	glEnable(GL_TEXTURE_2D);
 	glfwSetKeyCallback(window, Gra::key_callback); //Register key event processing procedure
     glfwSetFramebufferSizeCallback(window,windowResize);
-
-	// shaderProgram=new ShaderProgram("vshader.txt",NULL,"fshader.txt"); //Read, compile and link the shader program
- //    shaderProgram->use();            //wazne ze tutaj
-
     
-
     for (int i = 0; i < obiekty.size(); ++i)
     {
     	obiekty[i]->create_shaderProgram();
     	obiekty[i]->load_stuff();
 		obiekty[i]->prepareObject();
     }
-    
-
-
 }
-
 
 
 //Freeing of resources
@@ -122,8 +113,9 @@ void Gra::run()
 	Obiekt* worms = new Worms(1);
 	Obiekt* pustynia = new Plansza(2);
 
-	obiekty.push_back(worms);
 	obiekty.push_back(pustynia);
+	obiekty.push_back(worms);
+	
 	
 
 	GLFWwindow* window; //Pointer to window object

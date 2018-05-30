@@ -4,7 +4,6 @@
 void Worms::load_stuff()
 {
 	Texture = loadBMP_custom("texture/worms.bmp");     //for desert
-	TextureID = shaderProgram->getUniformLocation("myTextureSampler");
     bool res = loadOBJ("models/worms-2.obj", vertices, uvs, normals);        //desert model
 }
 
@@ -12,6 +11,7 @@ void Worms::load_stuff()
 
 void Worms::bindTextures()
 {
+    TextureID = shaderProgram->getUniformLocation("myTextureSampler");
 	// Bind our texture in Texture Unit 0
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, Texture);
