@@ -1,5 +1,7 @@
 #include "init.hpp"
 #include "plansza.hpp"
+#include "obiekt.hpp"
+
 
 
 class Gra
@@ -27,7 +29,7 @@ public:
 	GLuint vao;
 
 
-	Plansza* pustynia;
+	Obiekt* pustynia;
 	 
 
 };

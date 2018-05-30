@@ -55,6 +55,13 @@
 		<Unit filename="include/texture.hpp" />
 		<Unit filename="include/shaderprogram.h" />
 		<Unit filename="include/vshader.txt" />
+		<Unit filename="gra.cpp" />
+		<Unit filename="gra.hpp" />
+		<Unit filename="obiekt.cpp" />
+		<Unit filename="obiekt.hpp" />
+		<Unit filename="plansza.cpp" />
+		<Unit filename="plansza.hpp" />
+		<Unit filename="init.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

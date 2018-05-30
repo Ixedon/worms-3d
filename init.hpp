@@ -1,7 +1,9 @@
 //////////////////////biblioteki/////////////////////
-#define GLM_FORCE_RADIANS
 #ifndef INIT_H
 #define INIT_H
+
+#define GLM_FORCE_RADIANS
+
 
 const float PI = 3.141592653589793f;
 
