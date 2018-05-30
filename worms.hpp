@@ -5,6 +5,6 @@ class Worms : public Obiekt
 public:
 	using Obiekt::Obiekt;   //uzycie konstruktora obiektu
 
-	void load_stuff(ShaderProgram*);
+	void load_stuff();
 	void bindTextures();
 };

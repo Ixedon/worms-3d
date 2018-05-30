@@ -24,12 +24,7 @@ public:
 	static float aspect; //Ratio of width to height
  	static float speed_x; // [radians/s]
  	static float speed_y; // [radians/s]
-	//Shader program object
- 	ShaderProgram *shaderProgram;
 
-
-	//Obiekt* pustynia;
-	//Obiekt* worms;
 	std::vector<Obiekt*> obiekty;
 
 };

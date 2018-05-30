@@ -13,6 +13,7 @@ Obiekt::~Obiekt()
 
 void Obiekt::Destroy()
 {
+	delete shaderProgram; //Delete shader program
 		//Delete VBOs
 	glDeleteBuffers(1,&bufVertices);
 	glDeleteBuffers(1,&bufColors);
@@ -36,20 +37,22 @@ GLuint Obiekt::makeBuffer(void *data, int vertexCount, int vertexSize) {
 }
 
 //Assigns VBO buffer handle to an attribute of a given name
-void Obiekt::assignVBOtoAttribute(ShaderProgram *shaderProgram,const char* attributeName, GLuint bufVBO, int vertexSize) {
+void Obiekt::assignVBOtoAttribute(const char* attributeName, GLuint bufVBO, int vertexSize) {
 	GLuint location=shaderProgram->getAttribLocation(attributeName); //Get slot number for the attribute
 	glBindBuffer(GL_ARRAY_BUFFER,bufVBO);  //Activate VBO handle
 	glEnableVertexAttribArray(location); //Turn on using of an attribute of a number passed as an argument
 	glVertexAttribPointer(location,vertexSize,GL_FLOAT, GL_FALSE, 0, NULL); //Data for the slot should be taken from the current VBO buffer
 }
 
-
+void Obiekt::create_shaderProgram()
+{
+	shaderProgram=new ShaderProgram("vshader.txt",NULL,"fshader.txt"); //Read, compile and link the shader program
+    shaderProgram->use();            //wazne ze tutaj
+}
 
 
 //Preparation for drawing of a single object
-void Obiekt::prepareObject(ShaderProgram* shaderProgram) {
-
-
+void Obiekt::prepareObject() {
 
 	//Build VBO buffers with object data
 	bufVertices=makeBuffer(&vertices[0], vertices.size(), sizeof(glm::vec3)); //VBO with vertex coordinates
@@ -62,9 +65,9 @@ void Obiekt::prepareObject(ShaderProgram* shaderProgram) {
     glBindVertexArray(vao); //Activate newly created VAO
     
 
-	assignVBOtoAttribute(shaderProgram,"vertex",bufVertices,3); //"vertex" refers to the declaration "in vec4 vertex;" in vertex shader
-	assignVBOtoAttribute(shaderProgram,"vertexUV",bufUVs,2); //"UV" refers to the declaration "in vec4 UV;" in vertex shader
-	assignVBOtoAttribute(shaderProgram,"normal",bufNormals,3); //"normal" refers to the declaration "in vec4 normal;" w vertex shader
+	assignVBOtoAttribute("vertex",bufVertices,3); //"vertex" refers to the declaration "in vec4 vertex;" in vertex shader
+	assignVBOtoAttribute("vertexUV",bufUVs,2); //"UV" refers to the declaration "in vec4 UV;" in vertex shader
+	assignVBOtoAttribute("normal",bufNormals,3); //"normal" refers to the declaration "in vec4 normal;" w vertex shader
 
 	bindTextures();
 
@@ -74,7 +77,7 @@ void Obiekt::prepareObject(ShaderProgram* shaderProgram) {
 
 
 
-void Obiekt::drawObject(ShaderProgram *shaderProgram, mat4 mP, mat4 mV, mat4 mM) {
+void Obiekt::drawObject(mat4 mP, mat4 mV, mat4 mM) {
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("P"),1, false, glm::value_ptr(mP));
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("V"),1, false, glm::value_ptr(mV));
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("M"),1, false, glm::value_ptr(mM));

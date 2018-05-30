@@ -1,7 +1,7 @@
 #include "plansza.hpp"
 
 
-void Plansza::load_stuff(ShaderProgram *shaderProgram)
+void Plansza::load_stuff()
 {
 	Texture = loadBMP_custom("texture/desert.bmp");     //for desert
 	TextureID = shaderProgram->getUniformLocation("myTextureSampler");
@@ -17,5 +17,4 @@ void Plansza::bindTextures()
     glBindTexture(GL_TEXTURE_2D, Texture);
     // Set our "myTextureSampler" sampler to use Texture Unit 0
     glUniform1i(TextureID, 0);
-
 }

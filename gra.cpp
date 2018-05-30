@@ -17,15 +17,16 @@ void Gra::initOpenGLProgram(GLFWwindow* window) {
 	glfwSetKeyCallback(window, Gra::key_callback); //Register key event processing procedure
     glfwSetFramebufferSizeCallback(window,windowResize);
 
-	shaderProgram=new ShaderProgram("vshader.txt",NULL,"fshader.txt"); //Read, compile and link the shader program
-    shaderProgram->use();            //wazne ze tutaj
+	// shaderProgram=new ShaderProgram("vshader.txt",NULL,"fshader.txt"); //Read, compile and link the shader program
+ //    shaderProgram->use();            //wazne ze tutaj
 
     
 
     for (int i = 0; i < obiekty.size(); ++i)
     {
-    	obiekty[i]->load_stuff(shaderProgram);
-		obiekty[i]->prepareObject(shaderProgram);
+    	obiekty[i]->create_shaderProgram();
+    	obiekty[i]->load_stuff();
+		obiekty[i]->prepareObject();
     }
     
 
@@ -36,7 +37,7 @@ void Gra::initOpenGLProgram(GLFWwindow* window) {
 
 //Freeing of resources
 void Gra::freeOpenGLProgram() {
-	delete shaderProgram; //Delete shader program
+	
 	//delete pustynia;
 	for (int i = 0; i < obiekty.size(); ++i) delete obiekty[i];
 }
@@ -108,7 +109,7 @@ void Gra::drawScene(GLFWwindow* window, float angle_x, float angle_y) {
 
 	//Draw object
 	for (int i = 0; i < obiekty.size(); ++i)
-		obiekty[i]->drawObject(shaderProgram,P,V,M);
+		obiekty[i]->drawObject(P,V,M);
 
 	//Swap front and back buffers
 	glfwSwapBuffers(window);
@@ -121,8 +122,9 @@ void Gra::run()
 	Obiekt* worms = new Worms(1);
 	Obiekt* pustynia = new Plansza(2);
 
-	obiekty.push_back(pustynia);
 	obiekty.push_back(worms);
+	obiekty.push_back(pustynia);
+	
 
 	GLFWwindow* window; //Pointer to window object
 

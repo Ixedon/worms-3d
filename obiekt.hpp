@@ -11,13 +11,14 @@ public:
 
 	
 	GLuint makeBuffer(void*, int , int );
-	void assignVBOtoAttribute(ShaderProgram*,const char*, GLuint, int);
-	void prepareObject(ShaderProgram*);
-	void drawObject(ShaderProgram*, mat4, mat4, mat4);
+	void assignVBOtoAttribute(const char*, GLuint, int);
+	void prepareObject();
+	void drawObject(mat4, mat4, mat4);
 	void Destroy();
+	void create_shaderProgram();
 	
-	virtual void bindTextures(){}
-	virtual void load_stuff(ShaderProgram*){}
+	virtual void bindTextures()=0;
+	virtual void load_stuff()=0;
 
 ////////////////////////////////////
 	GLuint vao;
@@ -36,6 +37,7 @@ public:
  	std::vector<glm::vec3> normals; 
 
  	GLuint id;
+ 	ShaderProgram* shaderProgram;
 
 };
 
