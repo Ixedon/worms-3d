@@ -7,4 +7,6 @@ public:
 
 	void load_stuff();
 	void bindTextures();
+	bool czy_nad(float, float,float);
+	float rozklad(float, float, float, float, float, float);
 };

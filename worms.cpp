@@ -5,6 +5,8 @@ void Worms::load_stuff()
 {
 	Texture = loadBMP_custom("texture/worms.bmp");     //for desert
     bool res = loadOBJ("models/worms-2.obj", vertices, uvs, normals);        //desert model
+
+    x=y=z=0.0f;
 }
 
 

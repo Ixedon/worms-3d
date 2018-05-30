@@ -7,4 +7,6 @@ public:
 
 	void load_stuff();
 	void bindTextures();
+
+	float x,y,z;
 };
