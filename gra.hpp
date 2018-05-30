@@ -1,6 +1,7 @@
 #include "init.hpp"
-#include "plansza.hpp"
 #include "obiekt.hpp"
+#include "plansza.hpp"
+#include "worms.hpp"
 
 
 
@@ -25,11 +26,10 @@ public:
  	static float speed_y; // [radians/s]
 	//Shader program object
  	ShaderProgram *shaderProgram;
-	//VAO and VBO handles
-	GLuint vao;
 
 
-	Obiekt* pustynia;
-	 
+	//Obiekt* pustynia;
+	//Obiekt* worms;
+	std::vector<Obiekt*> obiekty;
 
 };

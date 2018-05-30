@@ -1,8 +1,8 @@
 #include "obiekt.hpp"
 
-Obiekt::Obiekt(GLuint* v)
+Obiekt::Obiekt(GLuint ident)
 {
-	vao = v;
+	id = ident;
 }
 
 Obiekt::~Obiekt()
@@ -17,6 +17,8 @@ void Obiekt::Destroy()
 	glDeleteBuffers(1,&bufVertices);
 	glDeleteBuffers(1,&bufColors);
 	glDeleteBuffers(1,&bufNormals);
+
+	glDeleteVertexArrays(1,&vao); //Delete VAO
 }
 
 
@@ -56,9 +58,9 @@ void Obiekt::prepareObject(ShaderProgram* shaderProgram) {
 	bufNormals=makeBuffer(&normals[0], normals.size(), sizeof(glm::vec3));//VBO with vertex normals
 
 	//Create VAO which associates VBO with attributes in shading program
-	glGenVertexArrays(1,vao); //Generate VAO handle and store it in the global variable
-
-	glBindVertexArray(*vao); //Activate newly created VAO
+	glGenVertexArrays(1,&vao); //Generate VAO handle and store it in the global variable
+    glBindVertexArray(vao); //Activate newly created VAO
+    
 
 	assignVBOtoAttribute(shaderProgram,"vertex",bufVertices,3); //"vertex" refers to the declaration "in vec4 vertex;" in vertex shader
 	assignVBOtoAttribute(shaderProgram,"vertexUV",bufUVs,2); //"UV" refers to the declaration "in vec4 UV;" in vertex shader
@@ -67,17 +69,18 @@ void Obiekt::prepareObject(ShaderProgram* shaderProgram) {
 	bindTextures();
 
 	glBindVertexArray(0); //Deactivate VAO
+	
 }
 
 
 
-void Obiekt::drawObject(GLuint fvao, ShaderProgram *shaderProgram, mat4 mP, mat4 mV, mat4 mM) {
+void Obiekt::drawObject(ShaderProgram *shaderProgram, mat4 mP, mat4 mV, mat4 mM) {
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("P"),1, false, glm::value_ptr(mP));
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("V"),1, false, glm::value_ptr(mV));
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("M"),1, false, glm::value_ptr(mM));
 
 	//Activation of VAO and therefore making all associations of VBOs and attributes current
-	glBindVertexArray(fvao);
+	glBindVertexArray(vao);
 
 	//Drawing of an object
 	glDrawArrays(GL_TRIANGLES,0,vertices.size());

@@ -1,9 +1,4 @@
-
 #include "gra.hpp"
-
-// void error_callback_handle(int, const char*);
-// void key_callback_handle(GLFWwindow*, int, int , int, int);
-// void windowResize_handle(GLFWwindow* , int , int );
 
 Gra::Gra(){}
 Gra::~Gra(){}
@@ -25,9 +20,15 @@ void Gra::initOpenGLProgram(GLFWwindow* window) {
 	shaderProgram=new ShaderProgram("vshader.txt",NULL,"fshader.txt"); //Read, compile and link the shader program
     shaderProgram->use();            //wazne ze tutaj
 
-    pustynia->load_stuff(shaderProgram);
+    
 
-	pustynia->prepareObject(shaderProgram);
+    for (int i = 0; i < obiekty.size(); ++i)
+    {
+    	obiekty[i]->load_stuff(shaderProgram);
+		obiekty[i]->prepareObject(shaderProgram);
+    }
+    
+
 
 }
 
@@ -36,8 +37,8 @@ void Gra::initOpenGLProgram(GLFWwindow* window) {
 //Freeing of resources
 void Gra::freeOpenGLProgram() {
 	delete shaderProgram; //Delete shader program
-	glDeleteVertexArrays(1,&vao); //Delete VAO
-	delete pustynia;
+	//delete pustynia;
+	for (int i = 0; i < obiekty.size(); ++i) delete obiekty[i];
 }
 
 
@@ -106,7 +107,8 @@ void Gra::drawScene(GLFWwindow* window, float angle_x, float angle_y) {
 	M = glm::rotate(M, angle_y, glm::vec3(0, 1, 0));
 
 	//Draw object
-	pustynia->drawObject(vao,shaderProgram,P,V,M);
+	for (int i = 0; i < obiekty.size(); ++i)
+		obiekty[i]->drawObject(shaderProgram,P,V,M);
 
 	//Swap front and back buffers
 	glfwSwapBuffers(window);
@@ -114,7 +116,13 @@ void Gra::drawScene(GLFWwindow* window, float angle_x, float angle_y) {
 
 void Gra::run()
 {
-	pustynia = new Plansza(&vao);
+	
+
+	Obiekt* worms = new Worms(1);
+	Obiekt* pustynia = new Plansza(2);
+
+	obiekty.push_back(pustynia);
+	obiekty.push_back(worms);
 
 	GLFWwindow* window; //Pointer to window object
 
@@ -171,24 +179,3 @@ void Gra::run()
 	glfwTerminate(); //Free GLFW resources
 	exit(EXIT_SUCCESS);
 }
-///////////////obsluga wskaznikow do funckji////////
-// Gra* error_callback_handle_object = new Gra;
-
-// void error_callback_handle(int error, const char* description)
-// {
-// 	error_callback_handle_object->error_callback(error, description);
-// }
-
-// Gra* key_callback_handle_object= new Gra;
-
-// void key_callback_handle(GLFWwindow* window, int key, int scancode, int action, int mods)
-// {
-// 	key_callback_handle_object->key_callback(window, key, scancode, action, mods);
-// }
-
-// Gra* windowResize_handle_object= new Gra;
-
-// void windowResize_handle(GLFWwindow* window, int width, int height)
-// {
-// 	windowResize_handle_object->windowResize(window, width, height);
-// }
