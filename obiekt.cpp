@@ -76,7 +76,7 @@ void Obiekt::prepareObject() {
 
 
 
-void Obiekt::drawObject(mat4 mP, mat4 mV, mat4 mM) {
+void Obiekt::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM) {
 	shaderProgram->use();            
 
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("P"),1, false, glm::value_ptr(mP));

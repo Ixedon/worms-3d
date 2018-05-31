@@ -86,8 +86,9 @@ void Gra::drawScene(GLFWwindow* window, float angle_x, float angle_y) {
 	glm::mat4 P = glm::perspective(50 * PI / 180,aspect, 1.0f, 400.0f); //ostatni parametr - odleglosc renderowania
 
 	float dist = -10.0f;
-	float dist2 = 200.0f; //for desert
+	//float dist2 = 200.0f; //for desert
 	//float dist2 = 50.0f; //for desert
+	float dist2 = 0.0f; //for worms
 
 	glm::mat4 V = glm::lookAt( //Compute view matrix
 		glm::vec3(0.0f, dist2, dist),
@@ -112,8 +113,8 @@ void Gra::run()
 {
 	
 
-	Obiekt* worms = new Worms(1);
-	Obiekt* pustynia = new Plansza(2);
+	Obiekt* worms = new Worms(0);
+	Obiekt* pustynia = new Plansza(1);
 
 	obiekty.push_back(pustynia);
 	obiekty.push_back(worms);

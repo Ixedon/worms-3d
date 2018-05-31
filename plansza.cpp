@@ -28,7 +28,7 @@ float Plansza::rozklad(float a, float ad, float am, float b, float bd, float bm)
 bool Plansza::czy_nad(float x, float y, float w)   //sprawdza czy punkt x,y,w jest nad plansza
 //nie testowane, przydatne przy wykrywaniu kolizji z plansza (player controller i o)
 {
-	x=x*1.2;
+	x=x*1.2;  //moze jest potrzebne, moze nie
     y=y*1.2;
 
     float z;

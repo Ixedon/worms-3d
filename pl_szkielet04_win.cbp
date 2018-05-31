@@ -62,6 +62,8 @@
 		<Unit filename="plansza.cpp" />
 		<Unit filename="plansza.hpp" />
 		<Unit filename="init.hpp" />
+		<Unit filename="worms.cpp" />
+		<Unit filename="worms.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

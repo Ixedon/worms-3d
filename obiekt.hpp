@@ -13,7 +13,7 @@ public:
 	GLuint makeBuffer(void*, int , int );
 	void assignVBOtoAttribute(const char*, GLuint, int);
 	void prepareObject();
-	void drawObject(mat4, mat4, mat4);
+	void drawObject(glm::mat4, glm::mat4, glm::mat4);
 	void Destroy();
 	void create_shaderProgram();
 	

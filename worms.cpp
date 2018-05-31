@@ -1,6 +1,11 @@
 #include "worms.hpp"
 
 
+// Worms::Worms(GLuint ident)
+// {
+//     id = ident;
+// }
+
 void Worms::load_stuff()
 {
 	Texture = loadBMP_custom("texture/worms.bmp");     //for desert
