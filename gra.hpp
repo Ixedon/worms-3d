@@ -2,6 +2,7 @@
 #include "obiekt.hpp"
 #include "plansza.hpp"
 #include "worms.hpp"
+#include "bazooka.hpp"
 
 
 

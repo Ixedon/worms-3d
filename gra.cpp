@@ -115,9 +115,11 @@ void Gra::run()
 
 	Obiekt* worms = new Worms(0);
 	Obiekt* pustynia = new Plansza(1);
+	Obiekt* bazooka = new Bazooka(2);
 
 	obiekty.push_back(pustynia);
 	obiekty.push_back(worms);
+	obiekty.push_back(bazooka);
 	
 	
 
