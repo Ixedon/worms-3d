@@ -10,6 +10,9 @@ public:
 	void bindTextures();
 	void move(glm::mat4&);
 
+	void Create();
+	void drawObject(glm::mat4, glm::mat4, glm::mat4);
+
 	float x,y,z;
-	//vector<vec3> positions;
+	std::vector<vec3> positions;
 };

@@ -11,7 +11,8 @@ public:
 
 	
 	GLuint makeBuffer(void*, int , int );
-	void assignVBOtoAttribute(const char*, GLuint, int);
+	void updateBuffer(GLuint, void*, int , int , int);
+	void assignVBOtoAttribute(const char*, GLuint, int, bool);
 	void prepareObject();
 	
 	void Destroy();
@@ -31,6 +32,7 @@ public:
 	GLuint bufUVs;
 	GLuint bufColors;  //handle for VBO buffer which stores vertex colors
 	GLuint bufNormals; //handle for VBO buffer which stores vertex normals
+	GLuint bufM;
 
 	 // Read our .obj file
  	std::vector<glm::vec3> vertices;
@@ -40,6 +42,11 @@ public:
  	GLuint id;
  	ShaderProgram* shaderProgram;
 
+ 	std::vector<mat4> M;    //macierz M poszczegolnych instancji (sama sie aktualizuje na podstawie ponizych vectorow)
+ 	std::vector<vec3> pos;  //pozycje poszczegolnych instancji
+ 	std::vector<vec3> rot;  //rotacje poszczegolnych instancji
+
+ 	int maxInstances;
 };
 
 

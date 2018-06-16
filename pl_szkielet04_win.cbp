@@ -66,6 +66,8 @@
 		<Unit filename="worms.hpp" />
 		<Unit filename="bazooka.cpp" />
 		<Unit filename="bazooka.hpp" />
+		<Unit filename="explosion.cpp" />
+		<Unit filename="explosion.hpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
