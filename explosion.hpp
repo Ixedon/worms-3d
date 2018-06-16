@@ -14,7 +14,9 @@ public:
 	void create_shaderProgram();
 
 
-	//std::vector<vec3> vertices;
+	unsigned long long time;
+	std::vector<int> ttl;
+	const unsigned long long maxttl = 10;
  	
 
 };

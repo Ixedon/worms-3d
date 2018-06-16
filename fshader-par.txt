@@ -6,14 +6,6 @@ in float dist;   //for regshader
 // Ouput data
 out vec3 color;
 
-
-in vec3 tvertex;
-in vec3 tnormal;
-in vec3 lpos;
-in vec3 cpos;
-
-
-
 uniform sampler2D myTextureSampler;
 
 

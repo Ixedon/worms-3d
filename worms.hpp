@@ -8,7 +8,4 @@ public:
 
 	void load_stuff();
 	void bindTextures();
-	void move(glm::mat4&);
-
-	float x,y,z;
 };

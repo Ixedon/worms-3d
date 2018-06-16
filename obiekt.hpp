@@ -45,6 +45,7 @@ public:
  	std::vector<mat4> M;    //macierz M poszczegolnych instancji (sama sie aktualizuje na podstawie ponizych vectorow)
  	std::vector<vec3> pos;  //pozycje poszczegolnych instancji
  	std::vector<vec3> rot;  //rotacje poszczegolnych instancji
+ 	std::vector<vec3> sca;  //skala poszczegolnych instancji
 
  	int maxInstances;
 };

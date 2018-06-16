@@ -17,10 +17,11 @@ void Obiekt::Create()
 	M.push_back(mat4(1.0f));
 	pos.push_back(vec3(0.0f,0.0f,0.0f));
 	rot.push_back(vec3(0.0f,0.0f,0.0f));
+	sca.push_back(vec3(1.0f,1.0f,1.0f));
 
-	M.push_back(mat4(1.0f));
-	pos.push_back(vec3(0.0f,1.0f,0.0f));
-	rot.push_back(vec3(1.0f,1.0f,0.0f));
+	// M.push_back(mat4(1.0f));
+	// pos.push_back(vec3(0.0f,1.0f,0.0f));
+	// rot.push_back(vec3(1.0f,1.0f,0.0f));
 
 
 	create_shaderProgram();
@@ -139,6 +140,7 @@ void Obiekt::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM) {
 		M[i] = glm::rotate(M[i], rot[i][0], vec3(1, 0, 0));
 		M[i] = glm::rotate(M[i], rot[i][1], vec3(0, 1, 0));
 		M[i] = glm::rotate(M[i], rot[i][2], vec3(0, 0, 1));
+		M[i] = glm::scale(M[i], sca[i]);
 	}
 	//M[1] = glm::translate(M[1], glm::vec3(1,1,1));
 	glUniformMatrix4fv(shaderProgram->getUniformLocation("P"),1, false, glm::value_ptr(mP));
