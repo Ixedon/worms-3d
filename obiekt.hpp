@@ -16,8 +16,8 @@ public:
 	void prepareObject();
 	
 	void Destroy();
-	void Create();
-	void create_shaderProgram();
+	virtual void Create();
+	virtual void create_shaderProgram();
 	
 	virtual void bindTextures()=0;        //funckja czysto wirtualna
 	virtual void load_stuff()=0;

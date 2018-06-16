@@ -1,0 +1,25 @@
+#version 330
+
+// Interpolated values from the vertex shaders
+in vec2 UV;
+in float dist;   //for regshader
+// Ouput data
+out vec3 color;
+
+
+in vec3 tvertex;
+in vec3 tnormal;
+in vec3 lpos;
+in vec3 cpos;
+
+
+
+uniform sampler2D myTextureSampler;
+
+
+
+void main(void) {
+
+	color = texture( myTextureSampler, UV ).rgb;                    //no shading
+  //color = vec3(0.5,0.5,0.5);                                              //solid color
+}
