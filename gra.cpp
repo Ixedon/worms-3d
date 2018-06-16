@@ -19,9 +19,7 @@ void Gra::initOpenGLProgram(GLFWwindow* window) {
     
     for (int i = 0; i < obiekty.size(); ++i)
     {
-    	obiekty[i]->create_shaderProgram();
-    	obiekty[i]->load_stuff();
-		obiekty[i]->prepareObject();
+    	obiekty[i]->Create();
     }
 }
 
@@ -116,10 +114,12 @@ void Gra::run()
 	Obiekt* worms = new Worms(0);
 	Obiekt* pustynia = new Plansza(1);
 	Obiekt* bazooka = new Bazooka(2);
+	Obiekt* explosion = new Explosion(3);
 
 	obiekty.push_back(pustynia);
 	obiekty.push_back(worms);
 	obiekty.push_back(bazooka);
+	//obiekty.push_back(explosion);
 	
 	
 

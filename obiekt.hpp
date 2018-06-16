@@ -13,13 +13,15 @@ public:
 	GLuint makeBuffer(void*, int , int );
 	void assignVBOtoAttribute(const char*, GLuint, int);
 	void prepareObject();
-	void drawObject(glm::mat4, glm::mat4, glm::mat4);
+	
 	void Destroy();
+	void Create();
 	void create_shaderProgram();
 	
 	virtual void bindTextures()=0;        //funckja czysto wirtualna
 	virtual void load_stuff()=0;
 	virtual void move(glm::mat4&){}        //mozliwosc nadpisania w konkretnych obiektach
+	virtual void drawObject(glm::mat4, glm::mat4, glm::mat4);
 
 ////////////////////////////////////
 	GLuint vao;

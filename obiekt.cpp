@@ -11,6 +11,14 @@ Obiekt::~Obiekt()
 }
 
 
+void Obiekt::Create()
+{
+	create_shaderProgram();
+    load_stuff();
+	prepareObject();
+}
+
+
 void Obiekt::Destroy()
 {
 	delete shaderProgram; //Delete shader program
