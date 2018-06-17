@@ -11,22 +11,59 @@ void Explosion::load_stuff()
 	Texture = loadBMP_custom("texture/explosion.bmp");     //for desert
     //vertices.push_back(vec3(0.0f, 0.0f, 0.0f));
     float ps = 0.5f;
+    float ps2 = 2* ps;
 
-    vertices.push_back(vec3(-ps, -ps, 0.0f));    
-    vertices.push_back(vec3(ps, -ps, 0.0f));
-    vertices.push_back(vec3(-ps, ps, 0.0f));
-    vertices.push_back(vec3( ps, ps, 0.0f));
+    // vertices.push_back(vec3(-ps, -ps, 0.0f));    
+    // vertices.push_back(vec3(ps, -ps, 0.0f));
+    // vertices.push_back(vec3(-ps, ps, 0.0f));
+
+
+    // vertices.push_back(vec3(ps, -ps, 0.0f));
+    // vertices.push_back(vec3(-ps, ps, 0.0f));    
+    
+    // vertices.push_back(vec3( ps, ps, 0.0f));
+
+
+    vertices.push_back(vec3( -ps, ps2, 0.0f));
+    vertices.push_back(vec3( -ps2, ps, 0.0f));
+    vertices.push_back(vec3( -ps2, -ps, 0.0f));
+
+    vertices.push_back(vec3( -ps, ps2, 0.0f));
+    vertices.push_back(vec3( ps, ps2, 0.0f));
+    vertices.push_back(vec3( ps2, ps, 0.0f));
+
+    vertices.push_back(vec3( -ps, ps2, 0.0f));
+    vertices.push_back(vec3( -ps2, -ps, 0.0f));
+    vertices.push_back(vec3( ps, -ps2, 0.0f));
+
+    vertices.push_back(vec3( -ps, ps2, 0.0f));
+    vertices.push_back(vec3( ps2, ps, 0.0f));
+    vertices.push_back(vec3( ps, -ps2, 0.0f));
+
+
+    vertices.push_back(vec3( -ps2, -ps, 0.0f));
+    vertices.push_back(vec3( -ps, -ps2, 0.0f));
+    vertices.push_back(vec3( ps, -ps2, 0.0f));
+    
+    vertices.push_back(vec3( ps, -ps2, 0.0f));
+    vertices.push_back(vec3( ps2, -ps, 0.0f));
+    vertices.push_back(vec3( ps2, ps, 0.0f));
 
 
     uvs.push_back(vec2(0.5f, 0.5f));
     normals.push_back(vec3(1.0f, 1.0f, 1.0f));
 
-    maxInstances = 100000;
+    maxInstances = 1000;
 
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_POINT_SMOOTH);
+    // Enable depth test
+    glEnable(GL_DEPTH_TEST);
+    // Accept fragment if it closer to the camera than the former one
+    glDepthFunc(GL_LESS);
+   // srand( time( NULL ) );
 
 }
 
@@ -56,7 +93,8 @@ void Explosion::Create()
         M.push_back(mat4(1.0f));
         pos.push_back(vec3(0,0,0));
         rot.push_back(vec3(0.0f,0.0f,0.0f));
-        sca.push_back(vec3(1.0f,1.0f,1.0f));
+        sca.push_back(vec3(0.5f,0.5f,0.5f));
+        //ttl.push_back(float(maxttl)/10*(rand()%10 +1));
         ttl.push_back(maxttl);
     }
     
@@ -77,14 +115,13 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
     {
         if(ttl[i]>0) 
         {
-            if(rand()%2 == 0)
-            {
-                pos[i] = vec3((maxttl - --ttl[i])/5.0f * cos(i*2*PI/float(M.size())),
-                                      (maxttl - ttl[i])/5.0f * sin(i*2*PI/float(M.size())),
+                ttl[i]-=(rand()%5 +1)/5;
+                //ttl[i]--;
+                pos[i] = vec3((maxttl - ttl[i])/2.0f * cos(i*2*PI/float(M.size())),
+                                      (maxttl - ttl[i])/2.0f * sin(i*2*PI/float(M.size())),
                                       0
                                       );
                 //sca[i]=vec3(ttl[i],ttl[i],ttl[i]);
-            }
         }
         else pos[i]=vec3(0,0,0);
 
@@ -95,7 +132,7 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
         M[i] = glm::rotate(M[i], rot[i][0], vec3(1, 0, 0));
         M[i] = glm::rotate(M[i], rot[i][1], vec3(0, 1, 0));
         M[i] = glm::rotate(M[i], rot[i][2], vec3(0, 0, 1));
-        //M[i] = glm::scale(M[i], sca[i]);
+        M[i] = glm::scale(M[i], sca[i]);
     }
 
     glUniformMatrix4fv(shaderProgram->getUniformLocation("P"),1, false, glm::value_ptr(mP));
@@ -112,7 +149,7 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
     bindTextures();    //wazne ze tutaj
 
     //Drawing of an object
-    glPointSize(20);
+    //glPointSize(20);
 
     //glDrawArraysInstanced(GL_POINTS,0, vertices.size(), M.size());
     glDrawArraysInstanced(GL_TRIANGLES,0, vertices.size(), M.size());

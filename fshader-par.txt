@@ -13,10 +13,11 @@ uniform sampler2D myTextureSampler;
 
 void main(void) {
 	
-	float dist = distance(vec2(0,0), tvertex.xy );
+	
 	//float dist = 1;
 
 	//color = texture( myTextureSampler, UV ).rgb;                    //no shading
-	color = vec4(texture( myTextureSampler, tvertex.xy ).rgb, dist);                    //no shading
+	vec3  col = texture( myTextureSampler, tvertex.xy ).rgb;
+	color = vec4(col, col.rgb*col.rgb*col.rgb*col.rgb);                    //no shading
   //color = vec3(0.5,0.5,0.5);                                              //solid color
 }
