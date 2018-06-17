@@ -19,9 +19,10 @@ void Obiekt::Create()
 	rot.push_back(vec3(0.0f,0.0f,0.0f));
 	sca.push_back(vec3(1.0f,1.0f,1.0f));
 
-	// M.push_back(mat4(1.0f));
-	// pos.push_back(vec3(0.0f,1.0f,0.0f));
-	// rot.push_back(vec3(1.0f,1.0f,0.0f));
+	M.push_back(mat4(1.0f));
+	pos.push_back(vec3(0.0f,1.0f,0.0f));
+	rot.push_back(vec3(1.0f,1.0f,0.0f));
+	sca.push_back(vec3(3.0f,3.0f,3.0f));
 
 
 	create_shaderProgram();

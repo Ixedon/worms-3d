@@ -2,16 +2,21 @@
 
 // Interpolated values from the vertex shaders
 in vec2 UV;
+in vec3 tvertex;
 in float dist;   //for regshader
 // Ouput data
-out vec3 color;
+out vec4 color;
 
 uniform sampler2D myTextureSampler;
 
 
 
 void main(void) {
+	
+	float dist = distance(vec2(0,0), tvertex.xy );
+	//float dist = 1;
 
-	color = texture( myTextureSampler, UV ).rgb;                    //no shading
+	//color = texture( myTextureSampler, UV ).rgb;                    //no shading
+	color = vec4(texture( myTextureSampler, tvertex.xy ).rgb, dist);                    //no shading
   //color = vec3(0.5,0.5,0.5);                                              //solid color
 }

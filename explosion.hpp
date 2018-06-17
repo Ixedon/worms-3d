@@ -16,7 +16,7 @@ public:
 
 	unsigned long long time;
 	std::vector<int> ttl;
-	const unsigned long long maxttl = 10;
+	const unsigned long long maxttl = 20;
  	
 
 };

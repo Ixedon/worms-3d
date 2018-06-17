@@ -117,9 +117,9 @@ void Gra::run()
 	Obiekt* explosion = new Explosion(3);
 
 	//obiekty.push_back(pustynia);
-	//obiekty.push_back(worms);
+	obiekty.push_back(worms);
 	//obiekty.push_back(bazooka);
-	obiekty.push_back(explosion);
+	//obiekty.push_back(explosion);
 	
 	
 

@@ -9,11 +9,24 @@
 void Explosion::load_stuff()
 {
 	Texture = loadBMP_custom("texture/explosion.bmp");     //for desert
-    vertices.push_back(vec3(0.0f, 0.0f, 0.0f));
-    uvs.push_back(vec2(0.0f, 0.0f));
+    //vertices.push_back(vec3(0.0f, 0.0f, 0.0f));
+    float ps = 0.5f;
+
+    vertices.push_back(vec3(-ps, -ps, 0.0f));    
+    vertices.push_back(vec3(ps, -ps, 0.0f));
+    vertices.push_back(vec3(-ps, ps, 0.0f));
+    vertices.push_back(vec3( ps, ps, 0.0f));
+
+
+    uvs.push_back(vec2(0.5f, 0.5f));
     normals.push_back(vec3(1.0f, 1.0f, 1.0f));
 
     maxInstances = 100000;
+
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_POINT_SMOOTH);
 
 }
 
@@ -64,7 +77,7 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
     {
         if(ttl[i]>0) 
         {
-            if(rand()%3 == 0)
+            if(rand()%2 == 0)
             {
                 pos[i] = vec3((maxttl - --ttl[i])/5.0f * cos(i*2*PI/float(M.size())),
                                       (maxttl - ttl[i])/5.0f * sin(i*2*PI/float(M.size())),
@@ -76,12 +89,13 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
         else pos[i]=vec3(0,0,0);
 
 
-        M[i] = mM;
+       // M[i] = mM;
+        M[i] = mat4(1.0f);
         M[i] = glm::translate(M[i], pos[i]);
         M[i] = glm::rotate(M[i], rot[i][0], vec3(1, 0, 0));
         M[i] = glm::rotate(M[i], rot[i][1], vec3(0, 1, 0));
         M[i] = glm::rotate(M[i], rot[i][2], vec3(0, 0, 1));
-        M[i] = glm::scale(M[i], sca[i]);
+        //M[i] = glm::scale(M[i], sca[i]);
     }
 
     glUniformMatrix4fv(shaderProgram->getUniformLocation("P"),1, false, glm::value_ptr(mP));
@@ -89,6 +103,7 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
     //glUniformMatrix4fv(shaderProgram->getUniformLocation("M"),1, false, glm::value_ptr(mM));
     
     updateBuffer(bufM, &M[0], maxInstances ,M.size(),sizeof(glm::mat4));//VBO with M matrices
+    //updateBuffer(bufM, &M[0], maxInstances ,M.size(),sizeof(glm::mat4));//VBO with M matrices
 
 
     //Activation of VAO and therefore making all associations of VBOs and attributes current
@@ -97,10 +112,10 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
     bindTextures();    //wazne ze tutaj
 
     //Drawing of an object
-    glPointSize(10);
+    glPointSize(20);
 
-    glDrawArraysInstanced(GL_POINTS,0, vertices.size(), M.size());
-    //glDrawArraysInstanced(GL_TRIANGLES,0, vertices.size(), M.size());
+    //glDrawArraysInstanced(GL_POINTS,0, vertices.size(), M.size());
+    glDrawArraysInstanced(GL_TRIANGLES,0, vertices.size(), M.size());
 
     //Tidying up after ourselves (not needed if we use VAO for every object)
     glBindVertexArray(0);

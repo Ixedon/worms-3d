@@ -4,7 +4,7 @@
 in vec2 UV;
 in float dist;   //for regshader
 // Ouput data
-out vec3 color;
+out vec4 color;
 
 
 in vec3 tvertex;
@@ -30,8 +30,8 @@ void main(void) {
 	//uncomment for different shaders (tu sie zmienia)
 
 	//toon shaders
-	color = texture( myTextureSampler, UV ).rgb * toon.rbg;          //toon shader v3 http://www.clockworkcoders.com/oglsl/tutorial10.htm
-    //color = texture( myTextureSampler, UV ).rgb * tshads.rbg;           //toon shader v4-2 (simple)
+	color = texture( myTextureSampler, UV ) * toon;          //toon shader v3 http://www.clockworkcoders.com/oglsl/tutorial10.htm
+    //color = texture( myTextureSampler, UV ) * vec4(tshads.rbg,1);           //toon shader v4-2 (simple)
 
 	//color = texture( myTextureSampler, UV ).rgb *dist;          //regular shader
 
