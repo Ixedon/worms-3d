@@ -118,7 +118,7 @@ void Gra::run()
 
 	obiekty.push_back(pustynia);
 	obiekty.push_back(worms);
-	//obiekty.push_back(bazooka);
+	obiekty.push_back(bazooka);
 	//obiekty.push_back(explosion);
 	
 	

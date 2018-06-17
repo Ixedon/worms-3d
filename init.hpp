@@ -15,6 +15,7 @@ const float PI = 3.141592653589793f;
 #include <stdlib.h>
 #include <stdio.h>
 #include <cstdlib>
+#include <ctime>
 #include <vector>
 #include <math.h>
 #include "include/shaderprogram.h"

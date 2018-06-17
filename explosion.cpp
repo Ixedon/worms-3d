@@ -9,6 +9,7 @@
 void Explosion::load_stuff()
 {
 	Texture = loadBMP_custom("texture/explosion.bmp");     //for desert
+    Texture2 = loadBMP_custom("texture/smoke.bmp");     //for desert
     //vertices.push_back(vec3(0.0f, 0.0f, 0.0f));
     float ps = 0.5f;
     float ps2 = 2* ps;
@@ -56,14 +57,14 @@ void Explosion::load_stuff()
     maxInstances = 1000;
 
 
-    glEnable(GL_BLEND);
+    
     glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_POINT_SMOOTH);
     // Enable depth test
     glEnable(GL_DEPTH_TEST);
     // Accept fragment if it closer to the camera than the former one
     glDepthFunc(GL_LESS);
-   // srand( time( NULL ) );
+    srand(time(NULL));
 
 }
 
@@ -71,11 +72,18 @@ void Explosion::load_stuff()
 void Explosion::bindTextures()
 {
     TextureID = shaderProgram->getUniformLocation("myTextureSampler");
+    TextureID2 = shaderProgram->getUniformLocation("myTextureSampler2");
 	// Bind our texture in Texture Unit 0
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, Texture);
     // Set our "myTextureSampler" sampler to use Texture Unit 0
     glUniform1i(TextureID, 0);
+
+
+    glActiveTexture(GL_TEXTURE0+1);
+    glBindTexture(GL_TEXTURE_2D, Texture2);
+    // Set our "myTextureSampler" sampler to use Texture Unit 0
+    glUniform1i(TextureID2, 1);
 }
 
 
@@ -98,7 +106,7 @@ void Explosion::Create()
         ttl.push_back(maxttl);
     }
     
-    time = 0;
+   // time = 0;
 
     create_shaderProgram();
     load_stuff();
@@ -107,6 +115,8 @@ void Explosion::Create()
 
 void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
 {
+    glEnable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
     shaderProgram->use();            
 
 
@@ -129,9 +139,9 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
        // M[i] = mM;
         M[i] = mat4(1.0f);
         M[i] = glm::translate(M[i], pos[i]);
-        M[i] = glm::rotate(M[i], rot[i][0], vec3(1, 0, 0));
-        M[i] = glm::rotate(M[i], rot[i][1], vec3(0, 1, 0));
-        M[i] = glm::rotate(M[i], rot[i][2], vec3(0, 0, 1));
+       // M[i] = glm::rotate(M[i], rot[i][0], vec3(1, 0, 0));
+       // M[i] = glm::rotate(M[i], rot[i][1], vec3(0, 1, 0));
+       // M[i] = glm::rotate(M[i], rot[i][2], vec3(0, 0, 1));
         M[i] = glm::scale(M[i], sca[i]);
     }
 
@@ -156,4 +166,6 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
 
     //Tidying up after ourselves (not needed if we use VAO for every object)
     glBindVertexArray(0);
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
 }

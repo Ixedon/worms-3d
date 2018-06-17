@@ -14,9 +14,12 @@ public:
 	void create_shaderProgram();
 
 
-	unsigned long long time;
+	//unsigned long long time;
 	std::vector<float> ttl;
 	const unsigned long long maxttl = 100;
+
+	GLuint Texture2;
+	GLuint TextureID2;
  	
 
 };

@@ -15,13 +15,20 @@ in mat4 M;
 out vec2 UV;
 out vec3 tvertex;
 out float dist;
+flat out int instance;
 
 void main(void) {
+	
+	instance  = gl_InstanceID;
 
-	gl_Position=P*V*M*vec4(vertex,1);
+	if(instance%2 == 0)gl_Position=P*V*M*vec4(vertex.xy, vertex.z + 0.1f,1);
+	else gl_Position=P*V*M*vec4(vertex.xy, vertex.z - 0.1f,1);
+
 	UV = vertexUV;
 	tvertex = normalize((V*M*vec4(vertex,1)).xyz)-0.5;
 	//tvertex = vertex -0.5;
 
 	dist = distance(vec2(0,0), tvertex.xy );
+
+	
 }

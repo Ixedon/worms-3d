@@ -4,11 +4,12 @@
 in vec2 UV;
 in vec3 tvertex;
 in float dist;   //for regshader
+flat in int instance;
 // Ouput data
 out vec4 color;
 
 uniform sampler2D myTextureSampler;
-
+uniform sampler2D myTextureSampler2;
 
 
 void main(void) {
@@ -16,8 +17,11 @@ void main(void) {
 	
 	//float dist = 1;
 
-	//color = texture( myTextureSampler, UV ).rgb;                    //no shading
 	vec3  col = texture( myTextureSampler, tvertex.xy ).rgb;
-	color = vec4(col, col.rgb*col.rgb*col.rgb*col.rgb);                    //no shading
+	vec3 col2 = texture( myTextureSampler2, tvertex.xy ).rgb;
+	
+	if(instance%2 == 0)color = vec4(col , col.rgb*col.rgb);                    //no shading
+	else color = vec4(col2 , col2.rbg);
+  
   //color = vec3(0.5,0.5,0.5);                                              //solid color
 }
