@@ -47,6 +47,8 @@
 			<Add directory="glew/lib" />
 		</Linker>
 		<Unit filename="fshader.txt" />
+		<Unit filename="vshader-par.txt" />
+		<Unit filename="fshader-par.txt" />
 		<Unit filename="include/objloader.cpp" />
 		<Unit filename="include/objloader.hpp" />
 		<Unit filename="main_file.cpp" />

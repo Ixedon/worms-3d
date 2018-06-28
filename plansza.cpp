@@ -25,10 +25,10 @@ float Plansza::rozklad(float a, float ad, float am, float b, float bd, float bm)
 	return(4/sqrt(2*PI*0.35*0.35)*exp(-((a*am + ad)*(a*am + ad)+(b*bm + bd)*(b*bm + bd))/(2*0.35*0.35))/2);
 }
 
-bool Plansza::czy_nad(float x, float y, float w)   //sprawdza czy punkt x,y,w jest nad plansza
-//nie testowane, przydatne przy wykrywaniu kolizji z plansza (player controller i o)
+
+float Plansza::wysokosc(float x, float y)
 {
-	x=x*1.2;  //moze jest potrzebne, moze nie
+    x=x*1.2;  //moze jest potrzebne, moze nie
     y=y*1.2;
 
     float z;
@@ -40,6 +40,11 @@ bool Plansza::czy_nad(float x, float y, float w)   //sprawdza czy punkt x,y,w je
     z = z- rozklad(x,-0.1,1.5,y,0,1.5)/4;
     z = z+ rozklad(x,-0.2,1,y,0.5,1)/5;
     z = z+ rozklad(x,-0.75,1,y,1,1)/2;
+    return z;
+}
 
-    return (w>z);
+bool Plansza::czy_nad(float x, float y, float w)   //sprawdza czy punkt x,y,w jest nad plansza
+//nie testowane, przydatne przy wykrywaniu kolizji z plansza (player controller i o)
+{
+    return (w>wysokosc(x,y));
 }
