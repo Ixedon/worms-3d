@@ -14,6 +14,7 @@ const float PI = 3.141592653589793f;
 #include <glm/gtc/matrix_transform.hpp>
 #include <stdlib.h>
 #include <stdio.h>
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <vector>

@@ -4,7 +4,7 @@
 void Plansza::load_stuff()
 {
 	Texture = loadBMP_custom("texture/desert.bmp");     //for desert
-	
+
     bool res = loadOBJ("models/desert-math.obj", vertices, uvs, normals);        //desert model
 }
 
@@ -28,15 +28,15 @@ float Plansza::rozklad(float a, float ad, float am, float b, float bd, float bm)
 
 float Plansza::wysokosc(float x, float y)
 {
-    x=x*1.2;  //moze jest potrzebne, moze nie
-    y=y*1.2;
+    //x=x*1.2;  //moze jest potrzebne, moze nie
+    //y=y*1.2;
 
     float z;
     z = rozklad(x,0.5,1,y,0.5,1)/1.8;
     z = z+ rozklad(x,-0.5,1,y,-0.9,1.3)/1.5;
     z = z+ rozklad(x,-0.75,1,y,1,2)/4;
     z = z- rozklad(x,0.5,0.75,y,-0.5,0.75)/5;
-        
+
     z = z- rozklad(x,-0.1,1.5,y,0,1.5)/4;
     z = z+ rozklad(x,-0.2,1,y,0.5,1)/5;
     z = z+ rozklad(x,-0.75,1,y,1,1)/2;

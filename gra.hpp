@@ -12,11 +12,12 @@ public:
 	Gra();
 	~Gra();
 	void zeby_wersje_stykaly();
-	static void windowResize(GLFWwindow*, int, int); 
+	static void windowResize(GLFWwindow*, int, int);
 	static void error_callback(int, const char*);
-	static void key_callback(GLFWwindow* , int ,int , int , int);
-	void drawScene(GLFWwindow*, float , float);
-	void initOpenGLProgram(GLFWwindow*); 
+	static void key_callback(GLFWwindow* ,int ,int , int , int);
+	void drawScene(GLFWwindow*, float, float);
+	void cameraPosition(glm::mat4&, glm::vec3);
+	void initOpenGLProgram(GLFWwindow*);
 	void freeOpenGLProgram();
 	void run();
 ////////////////////////////////////////////////////////////////////////

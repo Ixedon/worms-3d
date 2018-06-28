@@ -2,5 +2,6 @@ LIBS=-lGL -lglfw3 -lGLEW -lX11 -lXxf86vm -lXrandr -lpthread -lXi -ldl -lXinerama
 HEADERS=  include/shaderprogram.h include/objloader.hpp include/texture.hpp init.hpp gra.hpp plansza.hpp obiekt.hpp worms.hpp bazooka.hpp explosion.hpp
 FILES= main_file.cpp gra.cpp plansza.cpp include/shaderprogram.cpp include/objloader.cpp include/texture.cpp obiekt.cpp worms.cpp explosion.cpp bazooka.cpp
 
+Debug: main_file
 main_file:  $(FILES) $(HEADERS)
-	g++ -o main_file  $(FILES)  $(LIBS) -I.
+	g++ -o main_file  $(FILES)  $(LIBS) -I .

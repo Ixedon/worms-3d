@@ -4,10 +4,15 @@ Gra::Gra(){}
 Gra::~Gra(){}
 
 
-
+//inicjalizacja
 float Gra::speed_x = 0;
 float Gra::speed_y = 0;
 float Gra::aspect=1;
+
+Worms* worms;
+Plansza* pustynia;
+Obiekt* bazooka;
+Obiekt* explosion;
 
 void Gra::initOpenGLProgram(GLFWwindow* window) {
 	//************Insert initialization code here************
@@ -16,17 +21,18 @@ void Gra::initOpenGLProgram(GLFWwindow* window) {
 	glEnable(GL_TEXTURE_2D);
 	glfwSetKeyCallback(window, Gra::key_callback); //Register key event processing procedure
     glfwSetFramebufferSizeCallback(window,windowResize);
-    
+
     for (int i = 0; i < obiekty.size(); ++i)
     {
     	obiekty[i]->Create();
     }
+
 }
 
 
 //Freeing of resources
 void Gra::freeOpenGLProgram() {
-	
+
 	//delete pustynia;
 	for (int i = 0; i < obiekty.size(); ++i) delete obiekty[i];
 }
@@ -60,8 +66,8 @@ void Gra::key_callback(GLFWwindow* window, int key, int scancode, int action, in
 	if (action == GLFW_PRESS) {
 		if (key == GLFW_KEY_LEFT) speed_y = -3.14;
 		if (key == GLFW_KEY_RIGHT) speed_y = 3.14;
-		if (key == GLFW_KEY_UP) speed_x = -3.14;
-		if (key == GLFW_KEY_DOWN) speed_x = 3.14;
+		if (key == GLFW_KEY_UP) speed_x = 0.5;
+		if (key == GLFW_KEY_DOWN) speed_x = -0.5;
 	}
 
 
@@ -73,31 +79,33 @@ void Gra::key_callback(GLFWwindow* window, int key, int scancode, int action, in
 	}
 }
 
+void Gra::cameraPosition(glm::mat4& V, glm::vec3 worm_pos){
+    V = glm::lookAt(
+    worm_pos+glm::vec3(0.0f,0.0f,-10.0f),
+    glm::vec3(0.0f, 0.0f, 0.0f),
+    glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
 
 //Procedure which draws the scene
 void Gra::drawScene(GLFWwindow* window, float angle_x, float angle_y) {
-	//************Place the drawing code here******************l
 
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT); //Clear color and depth buffers
 
 	//glm::mat4 P = glm::perspective(50 * PI / 180,aspect, 1.0f, 50.0f); //Compute projection matrix
-	glm::mat4 P = glm::perspective(50 * PI / 180,aspect, 1.0f, 400.0f); //ostatni parametr - odleglosc renderowania
+	glm::mat4 P = glm::perspective(60 * PI / 180,aspect, 1.0f, 400.0f); //ostatni parametr - odleglosc renderowania
 
-	float dist = -10.0f;
-	//float dist2 = 200.0f; //for desert
-	//float dist2 = 50.0f; //for desert
-	float dist2 = 0.0f; //for worms
+    glm::mat4 V;
 
-	glm::mat4 V = glm::lookAt( //Compute view matrix
-		glm::vec3(0.0f, dist2, dist),
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(0.0f, 1.0f, 0.0f));
-
+    cameraPosition(V,worms->pos[0]);
 
 	//Compute model matrix
 	glm::mat4 M = glm::mat4(1.0f);
-	M = glm::rotate(M, angle_x, glm::vec3(1, 0, 0));
-	M = glm::rotate(M, angle_y, glm::vec3(0, 1, 0));
+	//M = glm::rotate(M, angle_x, glm::vec3(1, 0, 0));
+	//M = glm::rotate(M, angle_y, glm::vec3(0, 1, 0));
+	//M = glm::translate(M,glm::vec3(0.0f,0.0f,angle_x));
+	worms->pos[0] += glm::vec3(0.0f,0.0f,angle_x);
+    worms->rot[0][1] = angle_y;
 
 	//Draw object
 	for (int i = 0; i < obiekty.size(); ++i)
@@ -109,19 +117,18 @@ void Gra::drawScene(GLFWwindow* window, float angle_x, float angle_y) {
 
 void Gra::run()
 {
-	
-
-	Obiekt* worms = new Worms(0);
-	Obiekt* pustynia = new Plansza(1);
-	Obiekt* bazooka = new Bazooka(2);
-	Obiekt* explosion = new Explosion(3);
+	worms = new Worms(0);
+	pustynia = new Plansza(1);
+	//bazooka = new Bazooka(2);
+	explosion = new Explosion(3);
 
 	obiekty.push_back(pustynia);
 	obiekty.push_back(worms);
-	obiekty.push_back(bazooka);
+	//obiekty.push_back(bazooka);
 	//obiekty.push_back(explosion);
-	
-	
+
+
+
 
 	GLFWwindow* window; //Pointer to window object
 
@@ -154,19 +161,22 @@ void Gra::run()
 	}
 
 
-
 	initOpenGLProgram(window); //Initialization procedure
+
+
 
 	float angle_x = 0; //Object rotation angle
 	float angle_y = 0; //Object rotation angle
 
 	glfwSetTime(0); //Zero time counter
 
+
 	//Main loop
 	while (!glfwWindowShouldClose(window) && glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS) //As long as window shouldnt be closed...
 	{
 		angle_x += speed_x*glfwGetTime(); //Increase angle by the angle speed times the time passed since the previous frame
 		angle_y += speed_y*glfwGetTime(); //Increase angle by the angle speed times the time passed since the previous frame
+
 		glfwSetTime(0); //Zero time counter
 		drawScene(window,angle_x,angle_y); //Execute drawing procedure
 		glfwPollEvents(); //Execute callback procedures which process events
