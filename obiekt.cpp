@@ -11,14 +11,18 @@ Obiekt::~Obiekt()
 	Destroy();
 }
 
+void Obiekt::makeInstance(vec3 p, vec3 r, vec3 s)
+{
+	M.push_back(mat4(1.0f));                     //tworzenie obiektu 1
+	pos.push_back(p);
+	rot.push_back(r);
+	sca.push_back(s);
+
+}
 
 void Obiekt::Create()
 {
-	M.push_back(mat4(1.0f));                     //tworzenie obiektu 1
-	pos.push_back(vec3(0.0f,0.0f,0.0f));
-	rot.push_back(vec3(0.0f,0.0f,0.0f));
-	sca.push_back(vec3(1.0f,1.0f,1.0f));
-
+	makeInstance(vec3(0.0f), vec3(0.0f), vec3(1.0f) );
 	// M.push_back(mat4(1.0f));                      //tworzenie obiektu 2
 	// pos.push_back(vec3(0.0f,1.0f,0.0f));
 	// rot.push_back(vec3(1.0f,1.0f,0.0f));

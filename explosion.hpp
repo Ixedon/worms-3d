@@ -17,6 +17,7 @@ public:
 	//unsigned long long time;
 	std::vector<float> ttl;
 	const unsigned long long maxttl = 100;
+	int ilosc = 0;
 
 	GLuint Texture2;
 	GLuint TextureID2;

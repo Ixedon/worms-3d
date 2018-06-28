@@ -120,7 +120,7 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
     glDisable(GL_DEPTH_TEST);
     shaderProgram->use();            
 
-
+    if(M.size()==ilosc)M.clear();
 
     for (int i = 0; i < M.size(); ++i)
     {
@@ -134,7 +134,7 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
                                       );
                 //sca[i]=vec3(ttl[i],ttl[i],ttl[i]);
         }
-        else pos[i]=vec3(0,0,0);
+        else {pos[i]=vec3(1000,1000,0);ilosc++;}
 
 
        // M[i] = mM;

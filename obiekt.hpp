@@ -14,7 +14,8 @@ public:
 	void updateBuffer(GLuint, void*, int , int , int);
 	void assignVBOtoAttribute(const char*, GLuint, int, bool);
 	void prepareObject();
-	
+	void makeInstance(vec3, vec3, vec3);
+
 	void Destroy();
 	virtual void Create();
 	virtual void create_shaderProgram();

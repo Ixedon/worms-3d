@@ -1,6 +1,6 @@
 #include "gra.hpp"
 
-Gra::Gra(){}
+Gra::Gra(){Gra::grob = this;}
 Gra::~Gra(){}
 
 
@@ -8,9 +8,11 @@ Gra::~Gra(){}
 float Gra::speed_x = 0;
 float Gra::speed_y = 0;
 float Gra::aspect=1;
+Gra* Gra::grob = NULL;
 
 Worms* worms;
 Plansza* pustynia;
+Pocisk* pocisk;
 Obiekt* bazooka;
 Obiekt* explosion;
 
@@ -20,6 +22,7 @@ void Gra::initOpenGLProgram(GLFWwindow* window) {
 	glEnable(GL_DEPTH_TEST); //Turn on Z-Buffer
 	glEnable(GL_TEXTURE_2D);
 	glfwSetKeyCallback(window, Gra::key_callback); //Register key event processing procedure
+	glfwSetMouseButtonCallback(window, Gra::mouse_button_callback);
     glfwSetFramebufferSizeCallback(window,windowResize);
 
     for (int i = 0; i < obiekty.size(); ++i)
@@ -79,9 +82,21 @@ void Gra::key_callback(GLFWwindow* window, int key, int scancode, int action, in
 	}
 }
 
+void Gra::strzal()
+{
+	std::cerr << "strzel\n";
+    obiekty[2]->makeInstance(vec3(0.0f), vec3(0.0f), vec3(1.0f)  );
+}
+
+void Gra::mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)Gra::grob->strzal();
+}
+
+
 void Gra::cameraPosition(glm::mat4& V, glm::vec3 worm_pos){
     V = glm::lookAt(
-    worm_pos+glm::vec3(0.0f,00.0f,-10.0f),
+    worm_pos+glm::vec3(0.0f,0.0f,-10.0f),
     glm::vec3(0.0f, 0.0f, 0.0f),
     glm::vec3(0.0f, 1.0f, 0.0f));
 }
@@ -121,11 +136,14 @@ void Gra::run()
 	pustynia = new Plansza(1);
 	//bazooka = new Bazooka(2);
 	explosion = new Explosion(3);
+	pocisk = new Pocisk(4);
 
 	obiekty.push_back(pustynia);
 	obiekty.push_back(worms);
+	obiekty.push_back(pocisk);
 	//obiekty.push_back(bazooka);
-	obiekty.push_back(explosion);
+	//obiekty.push_back(explosion);
+	
 
 
 

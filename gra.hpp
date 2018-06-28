@@ -4,6 +4,7 @@
 #include "worms.hpp"
 #include "bazooka.hpp"
 #include "explosion.hpp"
+#include "pocisk.hpp"
 
 
 class Gra
@@ -15,10 +16,12 @@ public:
 	static void windowResize(GLFWwindow*, int, int);
 	static void error_callback(int, const char*);
 	static void key_callback(GLFWwindow* ,int ,int , int , int);
+	static void mouse_button_callback(GLFWwindow*, int , int, int);
 	void drawScene(GLFWwindow*, float, float);
 	void cameraPosition(glm::mat4&, glm::vec3);
 	void initOpenGLProgram(GLFWwindow*);
 	void freeOpenGLProgram();
+	void strzal();
 	void run();
 ////////////////////////////////////////////////////////////////////////
 
@@ -28,5 +31,6 @@ public:
  	static float speed_y; // [radians/s]
 
 	std::vector<Obiekt*> obiekty;
+	static Gra* grob;
 
 };
