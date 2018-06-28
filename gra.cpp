@@ -81,7 +81,7 @@ void Gra::key_callback(GLFWwindow* window, int key, int scancode, int action, in
 
 void Gra::cameraPosition(glm::mat4& V, glm::vec3 worm_pos){
     V = glm::lookAt(
-    worm_pos+glm::vec3(0.0f,0.0f,-10.0f),
+    worm_pos+glm::vec3(0.0f,00.0f,-10.0f),
     glm::vec3(0.0f, 0.0f, 0.0f),
     glm::vec3(0.0f, 1.0f, 0.0f));
 }
@@ -125,7 +125,7 @@ void Gra::run()
 	obiekty.push_back(pustynia);
 	obiekty.push_back(worms);
 	//obiekty.push_back(bazooka);
-	//obiekty.push_back(explosion);
+	obiekty.push_back(explosion);
 
 
 

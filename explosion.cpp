@@ -101,7 +101,8 @@ void Explosion::Create()
         M.push_back(mat4(1.0f));
         pos.push_back(vec3(0,0,0));
         rot.push_back(vec3(0.0f,0.0f,0.0f));
-        sca.push_back(vec3(0.5f,0.5f,0.5f));
+        //sca.push_back(vec3(0.5f,0.5f,0.5f));
+        sca.push_back(vec3(2.0f,2.0f,2.0f));
         //ttl.push_back(float(maxttl)/10*(rand()%10 +1));
         ttl.push_back(maxttl);
     }
@@ -143,6 +144,21 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
        // M[i] = glm::rotate(M[i], rot[i][1], vec3(0, 1, 0));
        // M[i] = glm::rotate(M[i], rot[i][2], vec3(0, 0, 1));
         M[i] = glm::scale(M[i], sca[i]);
+
+
+    // double dArray[16] = {0.0};
+
+    // const float *pSource = (const float*)glm::value_ptr(M[i]);
+    // for (int j = 0; j < 16; ++j)
+    //     {dArray[j] = pSource[j];}
+
+
+    // dArray[0] = dArray[5] = dArray[10] = 1;//sqrt(dArray[0]*dArray[0] + dArray[4]*dArray[4] + dArray[8]*dArray[8]);
+    // dArray[1] = dArray[2] = dArray[4] = dArray[6] = dArray[8] = dArray[9] = dArray[12] = dArray[13] = dArray[14] = 0.0f;
+    // dArray[15] =1;
+
+    // M[i]  = make_mat4(dArray);
+
     }
 
     glUniformMatrix4fv(shaderProgram->getUniformLocation("P"),1, false, glm::value_ptr(mP));
