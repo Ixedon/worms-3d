@@ -10,4 +10,5 @@ public:
 	bool czy_nad(float, float,float);
 	float wysokosc(float, float);
 	float rozklad(float, float, float, float, float, float);
+	void drawObject2(glm::mat4, glm::mat4, glm::mat4, float, float);
 };

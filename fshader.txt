@@ -30,8 +30,8 @@ void main(void) {
 	//uncomment for different shaders (tu sie zmienia)
 
 	//toon shaders
-	color = texture( myTextureSampler, UV ) * toon;          //toon shader v3 http://www.clockworkcoders.com/oglsl/tutorial10.htm
-    //color = texture( myTextureSampler, UV ) * vec4(tshads.rbg,1);           //toon shader v4-2 (simple)
+	color = texture( myTextureSampler, UV ) * toon;                              //v3
+    //color = texture( myTextureSampler, UV ) * vec4(tshads.rbg,1);            //simple v4
 
 	//color = texture( myTextureSampler, UV ).rgb *dist;          //regular shader
 
@@ -66,27 +66,24 @@ vec3 toon4Sim(void)
 
 vec4 toon3 (void)
 {
-	//new shader
 	vec4 toon;
 
 	float shininess = 1.0;
 
 
-	// Material Color:
 	float col0 = 1.0;
     vec4 color0 = vec4(col0, col0, col0, 1.0);
 
-    // Silhouette Color:
+    // Cien (obwodka)
     float col1 = 0.2;
     vec4 color1 = vec4(col1, col1, col1, 1.0);
 
-    // Specular Color:
+    // Specular:
     float col2 = 1.0;
     vec4 color2 = vec4(col2, col2, col2, 1.0);
 
 
-    // Lighting
-   // vec4 eyePos = vec4(0.0,0.0,5.0);
+    // Swiatlo
     vec3 eyePos = cpos;
     vec3 lightPos = lpos;
 
@@ -96,7 +93,6 @@ vec4 toon3 (void)
     vec3 EyeLight = normalize(LightVert + EyeVert);
 
 
-    // Simple Silhouette
     float sil = max(dot(Normal,EyeVert), 0.0);
 
     if (sil < 0.1) toon = color1;      //0.3 orig
@@ -104,13 +100,13 @@ vec4 toon3 (void)
       {
        toon = color0;
 
-       // Specular part
+       // Specular
        float spec = pow(max(dot(Normal,EyeLight),0.0), shininess);
 
        if (spec < 0.2) toon *= 0.8;
        else toon = color2;
 
-       // Diffuse part
+       // Diffuse
        float diffuse = max(dot(Normal,LightVert),0.0);
        if (diffuse < 0.5) toon *=0.8;
     }

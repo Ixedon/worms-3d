@@ -12,7 +12,8 @@ void Worms::load_stuff()
     bool res = loadOBJ("models/worms-2.obj", vertices, uvs, normals);        //desert model
 
 
-    pos[0] = vec3(0.0f, 3.0f, 0.0f);  //usatwienie poczatkowej pozycji wormsa o indeksie 0
+    pos[0] = vec3(0.0f, 0.0f, 0.0f);  //usatwienie poczatkowej pozycji wormsa o indeksie 0
+    rot[0] = vec3(0.0f, 1.5f, 0.0f);  //usatwienie poczatkowej pozycji wormsa o indeksie 0
 }
 
 

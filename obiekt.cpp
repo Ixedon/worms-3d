@@ -141,10 +141,10 @@ void Obiekt::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM) {
 	for (int i = 0; i < M.size(); ++i)
 	{
 		M[i] = mM;
-		M[i] = glm::translate(M[i], pos[i]);
 		M[i] = glm::rotate(M[i], rot[i][0], vec3(1, 0, 0));
 		M[i] = glm::rotate(M[i], rot[i][1], vec3(0, 1, 0));
 		M[i] = glm::rotate(M[i], rot[i][2], vec3(0, 0, 1));
+		M[i] = glm::translate(M[i], pos[i]);
 		M[i] = glm::scale(M[i], sca[i]);
 	}
 	//M[1] = glm::translate(M[1], glm::vec3(1,1,1));

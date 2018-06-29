@@ -93,13 +93,19 @@ void Explosion::create_shaderProgram()
 }
 
 
-void Explosion::Create()
+void Explosion::Create2(vec3 poz)
 {
+    M.clear();
+    pos.clear();
+    rot.clear();
+    sca.clear();
+    ttl.clear();
 
-    for (int i = 0; i < 1000; ++i)
+    for (int i = 0; i < 500; ++i)
     {
         M.push_back(mat4(1.0f));
         pos.push_back(vec3(0,0,0));
+        pos_orig.push_back(poz);
         rot.push_back(vec3(0.0f,0.0f,0.0f));
         //sca.push_back(vec3(0.5f,0.5f,0.5f));
         sca.push_back(vec3(2.0f,2.0f,2.0f));
@@ -128,7 +134,7 @@ void Explosion::drawObject(glm::mat4 mP, glm::mat4 mV, glm::mat4 mM)
         {
                 ttl[i]-=(rand()%5 +1)/5;
                 //ttl[i]--;
-                pos[i] = vec3((maxttl - ttl[i])/2.0f * cos(i*2*PI/float(M.size())),
+                pos[i] = pos_orig[i] + vec3((maxttl - ttl[i])/2.0f * cos(i*2*PI/float(M.size())),
                                       (maxttl - ttl[i])/2.0f * sin(i*2*PI/float(M.size())),
                                       0
                                       );

@@ -4,6 +4,10 @@ void Bazooka::load_stuff()
 {
 	Texture = loadBMP_custom("texture/bazooka.bmp");     //for bazooka
     bool res = loadOBJ("models/bazooka.obj", vertices, uvs, normals);        //bazooka model
+    pos[0] = vec3(0.0f, 0.5f, 0.7f);  //usatwienie poczatkowej pozycji wormsa o indeksie 0
+    rot[0] = vec3(0.0f, 0.0f, 0.0f);
+    sca[0] = vec3(-0.2f, 0.2f, 0.2f);
+
 }
 
 
